@@ -6,5 +6,7 @@ platforms/
 plugins/
 
 www/img/smiley.jpg
+www/js/app/
+www/js/common/
 www/pixiJS/
 todo.txt
