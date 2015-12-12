@@ -1,5 +1,5 @@
 
-var renderer = new PIXI.CanvasRenderer(800, 600);
+var renderer = new PIXI.autoDetectRenderer(800, 600);
 
 document.body.appendChild(renderer.view);
 
@@ -11,7 +11,7 @@ var stage = new PIXI.Container();
 // is bottom right
 //
 
-(function setup(){
+//(function setup(){
   PIXI.loader.add('obj1', 'img/obj.png')
     .load(function (loader, resources) {
       
@@ -138,24 +138,25 @@ var stage = new PIXI.Container();
         } 
         obj4.centered = !obj4.centered;
         console.log('hit obj4, data:', obj4); 
+        if(stage[0].centered === true && stage[1].centered === true && 
+           stage[2].centered === true && stage[3].centered === true) {
+          console.log('you win!');
+        }
       }
 
       stage.addChild(obj4);
     }
   );
-})();
+//})();
 
 console.log('STAGE DATA:\n', stage)
 console.log('RENDERER DATA:\n', renderer)
-console.log('STAGE obejct specific DATA:\n', stage[0])
+console.log('STAGE obejct specific DATA:\n' )
 animate();
 
 function animate() {
   requestAnimationFrame(animate)
   renderer.render(stage)
-//  if(obj1.centered === true && obj2.centered === true && 
-//     obj3.centered === true && obj4.centered === true) {
-//    console.log('you win!');
-//  }
+
 
 }
