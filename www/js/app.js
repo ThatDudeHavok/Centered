@@ -23,7 +23,6 @@ var checkSum = 0;
       
       var obj1 = new PIXI.Sprite(resources.obj1.texture);
      
-      // Set at center high
       obj1.anchor.x = 0.5;
       obj1.anchor.y = 0.25;
   
@@ -165,12 +164,6 @@ console.log('AFTER RENDER:', stage.children[0]);
 console.log('STAGE DATA:\n', stage)
 console.log('RENDERER DATA:\n', renderer)
 
-//function checkThings(check) {
-//  console.log('check things:', check)
-//  for(var i = 0; i < 4; i++){
-//    console.log('run ' + i +':\n' + check.children[i]);
-//  }
-//}
 
 function checkCentered(check) {
   if(check == 4) alert('YOU WON!!!!'); 
