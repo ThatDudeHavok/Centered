@@ -1,14 +1,20 @@
-
 var renderer = new PIXI.autoDetectRenderer(800, 600);
 
 document.body.appendChild(renderer.view);
 
 var stage = new PIXI.Container();
 
+var checkSum = 0;
 // 
 // Keep in mind sprite anchored with x at 0 
 // and y at 0 is set to top left. set at 1,1
 // is bottom right
+//
+
+// 
+// NOTE FOR LATER!!!!!!
+// move all objs to a group. Then possibly use 
+// groups to specify specific orbits
 //
 
 //(function setup(){
@@ -34,8 +40,10 @@ var stage = new PIXI.Container();
       function onDown(eventData){
         if(!obj1.centered) {
           obj1.position.y += 150;
+          checkSum++;
         } else {
           obj1.position.y -= 150;
+          checkSum--; 
         } 
         obj1.centered = !obj1.centered; 
         console.log('hit obj1, data:', obj1); 
@@ -67,8 +75,10 @@ var stage = new PIXI.Container();
       function onDown(eventData){
         if(!obj2.centered) {
           obj2.position.x -= 150;
+          checkSum++;
         } else {
           obj2.position.x += 150;
+          checkSum--; 
         } 
         obj2.centered = !obj2.centered; 
         console.log('hit obj2, data:', obj2); 
@@ -100,8 +110,10 @@ var stage = new PIXI.Container();
       function onDown(eventData){
         if(!obj3.centered) {
           obj3.position.y -= 150;
+          checkSum++;
         } else {
           obj3.position.y += 150;
+          checkSum--; 
         } 
         obj3.centered = !obj3.centered; 
         console.log('hit obj3, data:', obj3); 
@@ -133,30 +145,43 @@ var stage = new PIXI.Container();
       function onDown(eventData){
         if(!obj4.centered) {
           obj4.position.x += 150;
+          checkSum++;
+          console.log('true');
         } else {
           obj4.position.x -= 150;
+          checkSum--; 
+          console.log('false'); 
         } 
         obj4.centered = !obj4.centered;
         console.log('hit obj4, data:', obj4); 
-        if(stage[0].centered === true && stage[1].centered === true && 
-           stage[2].centered === true && stage[3].centered === true) {
-          console.log('you win!');
-        }
       }
 
       stage.addChild(obj4);
     }
   );
 //})();
-
+console.log('BEFORE RENDER:', stage.children[0]);
+console.log('AFTER RENDER:', stage.children[0]);
 console.log('STAGE DATA:\n', stage)
 console.log('RENDERER DATA:\n', renderer)
-console.log('STAGE obejct specific DATA:\n' )
+
+//function checkThings(check) {
+//  console.log('check things:', check)
+//  for(var i = 0; i < 4; i++){
+//    console.log('run ' + i +':\n' + check.children[i]);
+//  }
+//}
+
+function checkCentered(check) {
+  if(check == 4) alert('YOU WON!!!!'); 
+};
+
 animate();
 
 function animate() {
-  requestAnimationFrame(animate)
-  renderer.render(stage)
 
-
+  requestAnimationFrame(animate);
+  renderer.render(stage);
+  checkCentered(checkSum);
 }
+
