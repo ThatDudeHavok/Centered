@@ -45,16 +45,14 @@ for(var i = 0; i < 5; i++) {
       .on('mousedown', onDown);
 
     function onDown(eventData) {
-      var secondTarget = eventData;
-      secondTarget.target.num = relations[this.num.toString()];
-        
+
       this.moveThing();
 
       moveFamily(this.relation, eventData);
 
       this.centered = !this.centered;
       console.log('running:', this.num);
-      console.log(stage); 
+
     }
     stage.addChild(sprite);
 
