@@ -16,21 +16,8 @@ var relations = {
   "4": 3
 }
 
-function moveFamily(target, event) {
-
-  var move = stage.getChildAt(target)
-  
-  console.log('inside of MF func:', move); 
-
-  move.moveThing();
-
-  move.centered = !move.centered;
-
-}
-
 for(var i = 0; i < 5; i++) {
   (function spriteSet() { 
-    
 
     var sprite = new PIXI.Sprite.fromImage('../img/obj.png');
     
@@ -45,7 +32,6 @@ for(var i = 0; i < 5; i++) {
     
     sprite.centered = false;
     sprite.interactive = true; 
-//    sprite.worldVisable = true;
 
     sprite.moveThing = function() {
       if(!this.centered) {
@@ -75,9 +61,17 @@ for(var i = 0; i < 5; i++) {
   })(i)
 };
 
-var test = stage.getChildAt(1);
+function moveFamily(target, event) {
 
+  var move = stage.getChildAt(target)
+  
+  console.log('inside of MF func:', move); 
 
+  move.moveThing();
+
+  move.centered = !move.centered;
+
+}
 
 console.log('STAGE DATA:\n', stage);
 
