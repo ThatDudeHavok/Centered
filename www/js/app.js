@@ -13,26 +13,25 @@ var relations = {
   "1": 3,
   "2": 4,
   "3": 0,
-  "4": 3,
+  "4": 3
 }
 
-function moveFamily(spriteNum, eventData) {
- 
-  //  
-  // function to move sibling sprites 
-  //
-  
-  stage.getChildAt(relations[spriteNum.toString()])
+function moveFamily(target, event) {
 
-  var holder = stage.getChildAt(relations[spriteNum.toString()]);
+  var move = stage.getChildAt(target)
   
-  console.log(eventData); 
+  console.log('inside of MF func:', move); 
+
+  move.moveThing();
+
+  move.centered = !move.centered;
 
 }
 
 for(var i = 0; i < 5; i++) {
-  (function spriteSet(){ 
- 
+  (function spriteSet() { 
+    
+
     var sprite = new PIXI.Sprite.fromImage('../img/obj.png');
     
     sprite.scale.x = 0.2;
@@ -40,68 +39,45 @@ for(var i = 0; i < 5; i++) {
 
     sprite.position.x = 50 + (150 * i);
     sprite.position.y = 400;
- 
-    sprite["num"] = i; 
-    sprite["centered"] = false;
+    
+    sprite.num = i;
+    sprite.relation = relations[i.toString()];  
+    
+    sprite.centered = false;
     sprite.interactive = true; 
-     
-    var num = sprite.num;
+//    sprite.worldVisable = true;
 
-    sprite.on('mousedown', onDown);
-
-    function onDown(eventData) {
-      
+    sprite.moveThing = function() {
       if(!this.centered) {
         this.position.y -= 200;
-        moveFamily(num, eventData); 
       } else {
         this.position.y += 200;
-        moveFamily(num, eventData); 
       };
+    }
+    
+    sprite
+      .on('mousedown', onDown);
+
+    function onDown(eventData) {
+      var secondTarget = eventData;
+      secondTarget.target.num = relations[this.num.toString()];
+        
+      this.moveThing();
+
+      moveFamily(this.relation, eventData);
 
       this.centered = !this.centered;
-    
+      console.log('running:', this.num);
+      console.log(stage); 
     }
- 
     stage.addChild(sprite);
 
   })(i)
 };
 
-//console.log('YOLO?', stage.getChildAt(0));
-
-
 var test = stage.getChildAt(1);
 
-//console.log('This:', test);
 
-
-// 
-// Keep in mind sprite anchored with x at 0 
-// and y at 0 is set to top left. set at 1,1
-// is bottom right
-//
-
-// 
-// NOTE FOR LATER!!!!!!
-// move all objs to a group. Then possibly use 
-// groups to specify specific orbits
-//
-
-//  800 by 600
-
-  // 
-  // (j,k) as origin, r as radius
-  //
-  // x(t) = t cos(t) + j
-  // y(t) = r sin(t) + k
-  //
-  
-  //if(i === 0) {
-  //  sphere.position.set(600, 450);      
-  //} else {
-  //  sphere.position.set(200, 150); 
-  //}
 
 console.log('STAGE DATA:\n', stage);
 
